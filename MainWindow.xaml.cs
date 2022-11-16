@@ -29,6 +29,20 @@ namespace TestTask
 
         private void GenerateHtmlReport(object sender, RoutedEventArgs e)
         {
+            List<string> errorLogs = new List<string>();
+            StringBuilder errorsList = new StringBuilder();
+            DirectoryAnalyzer directoryAnalyzer = new DirectoryAnalyzer(@"E:\OTHER\PROGRAMMING\Projects\TETS");
+            DirNode parsedData = directoryAnalyzer.GetParsedData(out errorLogs);
+
+            if (errorLogs != null)
+            {
+                foreach (var item in errorLogs)
+                {
+                    errorsList.Append($"{item}\n");
+                }
+
+                MessageBox.Show(errorsList.ToString());
+            }
             
         }
 

@@ -46,5 +46,10 @@ namespace TestTask.model
         public string Name { get; set; }
         public List<INode> childNodes { get; set; }
 
+        public DirNode()
+        {
+            childNodes = new List<INode>();
+        }
+
     }
 }

@@ -27,20 +27,24 @@ namespace TestTask.model
             }
         }
 
+        private List<string> logs = new List<string>();
         private string directoryPath;
-
-        public void GetData()
-        {
-
-        }
+        
         //path - путь к директории для парса
         public DirectoryAnalyzer(string path)
         {
             DirectoryPath = path;
         }
+        public DirNode GetParsedData(out List<string> errorLogs)
+        {
+            DirNode rootNode = new DirNode();
+            DirectoryInfo rootDirInfo = new DirectoryInfo(DirectoryPath);
+            ParseDirectoryTree(rootDirInfo, rootNode);
+            errorLogs = logs;
+            return rootNode;
+        }
 
-        
-        private static void WalkDirectoryTree(DirectoryInfo root, DirNode rootNode)
+        private void ParseDirectoryTree(DirectoryInfo root, DirNode rootNode)
         {
             DirectoryInfo[] subDirs = null;
             FileInfo[] files = null;
@@ -55,30 +59,28 @@ namespace TestTask.model
             }
             catch (UnauthorizedAccessException e)
             {
-
+                logs.Add(e.Message);
             }
             catch (DirectoryNotFoundException e)
             {
-                
+                logs.Add(e.Message);
             }
 
             if (files != null)
             {
-                foreach (FileInfo fi in files)
+                foreach (FileInfo file in files)
                 {
-                    rootNode.childNodes.Add(new FileNode(fi.Name,fi.Length,rootNode));
+                    rootNode.childNodes.Add(new FileNode(file.Name, file.Length, rootNode));
                 }
+            }
 
-                // Now find all the subdirectories under this directory.
                 subDirs = root.GetDirectories();
-
 
                 foreach (DirectoryInfo dirInfo in subDirs)
                 {
                     // Resursive call for each subdirectory.
-                    WalkDirectoryTree(dirInfo,subDirNode);
-                }
-            }
+                    ParseDirectoryTree(dirInfo, subDirNode);
+                }         
         }
     } 
 }
