@@ -10,7 +10,6 @@ namespace TestTask.model
 {
     internal class DirectoryAnalyzer
     {
-
         public string DirectoryPath
         {
             get => directoryPath;
@@ -43,7 +42,6 @@ namespace TestTask.model
             errorLogs = logs;
             return rootNode;
         }
-
         private void ParseDirectoryTree(DirectoryInfo root, DirNode rootNode)
         {
             DirectoryInfo[] subDirs = null;
@@ -73,7 +71,6 @@ namespace TestTask.model
                     rootNode.childNodes.Add(new FileNode(file.Name, file.Length, rootNode));
                 }
             }
-
                 subDirs = root.GetDirectories();
 
                 foreach (DirectoryInfo dirInfo in subDirs)
