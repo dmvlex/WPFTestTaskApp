@@ -43,7 +43,10 @@ namespace TestTask
 
                 MessageBox.Show(errorsList.ToString());
             }
-            
+
+            ReportInfo report = new ReportInfo(parsedData);
+            MessageBox.Show(report.ToString());
+
         }
 
         private void ChangeReportPath(object sender, RoutedEventArgs e)
