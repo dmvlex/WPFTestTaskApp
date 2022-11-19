@@ -1,0 +1,44 @@
+﻿@using RazorLight
+@inherits TemplatePage<DirMimeTypeParser.HTMLGenerator.RazorPagesCompiler.model.ReportModel>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @{
+        await IncludeAsync("TemplateCssPartial.cshtml");
+    }
+    <title>Document</title>
+</head>
+<body style="margin:0 auto;">
+    <div>
+        <h1>Отчет</h1>
+        <h2>Время: @DateTime.Now</h2>
+        <h6>Путь: @Model.RootFolderFullPath</h6>
+        <ul id="myUL">
+            <li>
+                <span class="caret">Mime-типы в директории</span>
+                <ul class="nested">
+                    @{
+                        foreach (var type in Model.ParsedMimeTypes)
+                        {
+                            <li>
+                                <span class="caret types">@type.Name</span>
+                                <ul class="nested">
+                                    <li><b>Файлов в директории: </b>@type.Num (@type.PercentNum %)</li>
+                                    <li><b>Средний размер файла: </b>@type.AverageTypeLength Bytes</li>
+                                </ul>
+                            </li>
+                        }
+
+                    }
+                </ul>
+        </ul>
+        </div>
+        @{
+            await IncludeAsync("TemplateScriptsPartial.cshtml");
+        }
+</body>
+</html>

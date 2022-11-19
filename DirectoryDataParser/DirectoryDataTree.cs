@@ -1,11 +1,12 @@
-﻿using System;
-using Microsoft.AspNetCore.StaticFiles;
+﻿using Microsoft.AspNetCore.StaticFiles;
+using System;
+using MimeMapping;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestTask.model
+namespace DirMimeTypeParser.DirectoryDataParser
 {
     public interface INode
     {
@@ -13,6 +14,9 @@ namespace TestTask.model
         public string Name { get; set; }
     }
 
+    /// <summary>
+    /// Реализует узел дерева, содержащий файл
+    /// </summary>
     public class FileNode : INode
     {
         public DirNode ParentNode { get; set; }
@@ -21,16 +25,14 @@ namespace TestTask.model
         {
             get
             {
-                return mimeMapper.Map(Name);
+                return MimeMapping.MimeUtility.GetMimeMapping(Name);
             }
         }
 
         /// <summary>
-        /// File size in bytes
+        /// Размер файла в байтах
         /// </summary>
         public long Length { get; set; }
-
-        private IMimeMapper mimeMapper = new MimeMapper(new FileExtensionContentTypeProvider());
 
         public FileNode(string fileName, long fileLength, DirNode parentNode)
         {
@@ -40,8 +42,12 @@ namespace TestTask.model
         }
     }
 
+    /// <summary>
+    /// Реализует узел дерева, содержащий папку
+    /// </summary>
     public class DirNode : INode
     {
+        ///Все начинается с папки, потому корневой узел дерева должен иметь этот тип
         public DirNode ParentNode { get; set; } = null;
         public string Name { get; set; }
         public List<INode> childNodes { get; set; }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.AspNetCore.StaticFiles;
+using System.IO;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -13,7 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TestTask.model;
+using DirMimeTypeParser.HTMLGenerator.RazorPagesCompiler.model;
+using DirMimeTypeParser.HTMLGenerator;
+using System.Diagnostics;
 
 namespace TestTask
 {
@@ -22,36 +24,44 @@ namespace TestTask
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string directoryPath = Environment.CurrentDirectory;
+        private string reportPath = Environment.CurrentDirectory;
+
         public MainWindow()
         {
             InitializeComponent();
+            ParsedDirectoryForm.Text = directoryPath;
+            ReportPathForm.Text = reportPath;
         }
 
-        private void GenerateHtmlReport(object sender, RoutedEventArgs e)
+        private async void GenerateHtmlReport(object sender, RoutedEventArgs e)
         {
-            List<string> errorLogs = new List<string>();
-            StringBuilder errorsList = new StringBuilder();
-            DirectoryAnalyzer directoryAnalyzer = new DirectoryAnalyzer(@"E:\OTHER\PROGRAMMING\Projects\TETS");
-            DirNode parsedData = directoryAnalyzer.GetParsedData(out errorLogs);
-
-            if (errorLogs != null)
+            directoryPath = ReportPathForm.Text;
+            reportPath = ParsedDirectoryForm.Text;
+            try
             {
-                foreach (var item in errorLogs)
+                List<string> logs = new List<string>();
+                ReportModel reportModel = new ReportModel(directoryPath, out logs);
+                HtmlReportGenerator<ReportModel> reportGenerator = new HtmlReportGenerator<ReportModel>(reportPath, reportModel);
+                await reportGenerator.Generate();
+                MessageBox.Show("Файл успешно сгенерирован", "Успех!");
+
+                var result = MessageBox.Show("Хотите открыть папку с отчетом?", "Открытие папки", MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    errorsList.Append($"{item}\n");
+                    Process.Start("explorer.exe", reportPath);
                 }
-
-                MessageBox.Show(errorsList.ToString());
             }
-
-            ReportInfo report = new ReportInfo(parsedData);
-            MessageBox.Show(report.ToString());
-
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!");
+            }
         }
 
         private void ChangeReportPath(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void ChangeParsedDirectoryPath(object sender, RoutedEventArgs e)
