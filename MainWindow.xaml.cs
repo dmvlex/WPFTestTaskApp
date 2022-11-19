@@ -1,21 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.IO;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DirMimeTypeParser.HTMLGenerator.RazorPagesCompiler.model;
-using DirMimeTypeParser.HTMLGenerator;
+using WinForms = System.Windows.Forms;
+using TestTask.HTMLGenerator.RazorPagesCompiler.model;
+using TestTask.HTMLGenerator;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace TestTask
 {
@@ -34,10 +24,8 @@ namespace TestTask
             ReportPathForm.Text = reportPath;
         }
 
-        private async void GenerateHtmlReport(object sender, RoutedEventArgs e)
+        private async Task Start(string directoryPath, string reportPath)
         {
-            directoryPath = ReportPathForm.Text;
-            reportPath = ParsedDirectoryForm.Text;
             try
             {
                 List<string> logs = new List<string>();
@@ -53,20 +41,42 @@ namespace TestTask
                     Process.Start("explorer.exe", reportPath);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка!");
             }
         }
 
+        private async void GenerateHtmlReport(object sender, RoutedEventArgs e)
+        {
+            GenerateHtmlButton.IsEnabled = false;
+            directoryPath = ParsedDirectoryForm.Text;
+            reportPath = ReportPathForm.Text;
+
+            await Start(directoryPath, reportPath);
+            GenerateHtmlButton.IsEnabled = true;
+        }
+
         private void ChangeReportPath(object sender, RoutedEventArgs e)
         {
-            
+            var dialogFileChoise = new WinForms.FolderBrowserDialog();
+            var dialogResult = dialogFileChoise.ShowDialog();
+
+            if (dialogResult == WinForms.DialogResult.OK)
+            {
+               ReportPathForm.Text = dialogFileChoise.SelectedPath;
+            }
         }
 
         private void ChangeParsedDirectoryPath(object sender, RoutedEventArgs e)
         {
+            var dialogFileChoise = new WinForms.FolderBrowserDialog();
+            var dialogResult = dialogFileChoise.ShowDialog();
 
+            if (dialogResult == WinForms.DialogResult.OK)
+            {
+                ParsedDirectoryForm.Text = dialogFileChoise.SelectedPath;
+            }
         }
     }
 }

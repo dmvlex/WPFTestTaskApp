@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DirMimeTypeParser.HTMLGenerator.RazorPagesCompiler
+namespace TestTask.HTMLGenerator.RazorPagesCompiler
 {
     public class RazorCompiler<T> where T : class
     {
@@ -16,7 +16,7 @@ namespace DirMimeTypeParser.HTMLGenerator.RazorPagesCompiler
         public RazorCompiler(T model)
         {
             engine = new RazorLightEngineBuilder()
-                .UseEmbeddedResourcesProject(Assembly.GetExecutingAssembly(), "DirMimeTypeParser.ReportTemplate")
+                .UseEmbeddedResourcesProject(Assembly.GetExecutingAssembly(), "TestTask.ReportTemplate")
                 .UseMemoryCachingProvider()
                 .Build();
 

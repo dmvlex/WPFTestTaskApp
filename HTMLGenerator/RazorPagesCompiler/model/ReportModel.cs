@@ -1,4 +1,4 @@
-﻿using DirMimeTypeParser.DirectoryDataParser;
+﻿using TestTask.DirectoryDataParser;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DirMimeTypeParser.HTMLGenerator.RazorPagesCompiler.model
+namespace TestTask.HTMLGenerator.RazorPagesCompiler.model
 {
     public class ParsedMimeTypesInfo
     {

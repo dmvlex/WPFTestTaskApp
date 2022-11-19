@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:TestTask"
         mc:Ignorable="d"
         Title="TestTask" 
-        Height="300" Width="500"
+        Height="200" Width="500"
         ResizeMode="CanMinimize" Background="LightSteelBlue">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.40*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -21,23 +21,31 @@
         </Grid.ColumnDefinitions>
         
         <!--Parsed Directory-->
+        <Label x:Name="DirLabel"
+               Content="Directory to parse:"
+            />
         <TextBox x:Name="ParsedDirectoryForm" Style="{StaticResource PathContainers}"
                      Grid.ColumnSpan="2"
                      Grid.Row="0"/>
-        <Button x:Name="ParsedDirectoryPathButton" Click="ChangeParsedDirectoryPath"
+        <Button x:Name="ParsedDirectoryPathButton" Style="{StaticResource CustomButtons}"
+                Click="ChangeParsedDirectoryPath"
                 Content="Change dir path"
                 Grid.Column="2" Grid.Row="0"/>
         
         <!--Report path-->
+        <Label x:Name="ReportLabel" Grid.Row="1"
+               Content="Path to report:"
+            />
         <TextBox x:Name="ReportPathForm" Style="{StaticResource PathContainers}"
                      Grid.ColumnSpan="2"
                      Grid.Row="1"/>
-        <Button x:Name="ReportPathButton"
+        <Button x:Name="ReportPathButton" Style="{StaticResource CustomButtons}"
                 Content="Change report path" Click="ChangeReportPath"
                 Grid.Column="2" Grid.Row="1"/>
         
         <!--Control bar-->
-        <Button x:Name="GenerateHtmlButton" Click="GenerateHtmlReport"
+        <Button x:Name="GenerateHtmlButton" Style="{StaticResource CustomButtons}"
+                Click="GenerateHtmlReport"
                 Content="Generate HTML"
                 Grid.Column="0" Grid.Row="2"/>
     </Grid>

@@ -5,7 +5,9 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <PreserveCompilationContext> true </PreserveCompilationContext>
+    <PreserveCompilationReferences>true</PreserveCompilationReferences>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +17,10 @@
     </PackageReference>
     <PackageReference Include="MimeMapping" Version="1.0.1.50" />
     <PackageReference Include="RazorLight" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ReportTemplate\**" />
   </ItemGroup>
 
 </Project>

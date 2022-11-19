@@ -8,6 +8,12 @@
             <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="AcceptsReturn" Value="False"/>
             <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+        <Style TargetType="Button" x:Key="CustomButtons">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="3"/>
         </Style>
     </Application.Resources>
 </Application>

@@ -1,12 +1,12 @@
 ﻿using System;
-using DirMimeTypeParser.HTMLGenerator.RazorPagesCompiler;
+using TestTask.HTMLGenerator.RazorPagesCompiler;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DirMimeTypeParser.HTMLGenerator
+namespace TestTask.HTMLGenerator
 {
     
     public interface IHtmlGenerator

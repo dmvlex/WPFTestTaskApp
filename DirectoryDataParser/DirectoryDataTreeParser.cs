@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DirMimeTypeParser.DirectoryDataParser;
+using TestTask.DirectoryDataParser;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DirMimeTypeParser.DirectoryDataParser
+namespace TestTask.DirectoryDataParser
 {
     /// <summary>
     /// Собирает всю необходимую информацию из директории и сохраняет в виде дерева
